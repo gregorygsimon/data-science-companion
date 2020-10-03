@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\usepackage{xcolor,hyperref}
+
+\definecolor{UMBlue}{RGB}{0 39 76}
+
+\hypersetup{
+  colorlinks,
+  allcolors=UMBlue
+%    citecolor=black,
+%    filecolor=black,
+%    linkcolor=black,
+%    urlcolor=black
+}
+
+
+
+%\setcounter{figure}{0}
+%\renewcommand{\thefigure}{\arabic{figure}}
+
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
+
+\title{Data Science Companion}
+
+\author{Greg Simon, \url{gregorygsimon@gmail.com}}
+
+
+\begin{document}
+
+\maketitle
+
+
+\abstract{A reference for basic data science tools and vocabulary, explaining
+  essential terms and concepts, examining core ideas in major areas, and putting
+  methods in context. Includes relevent keywords and references for further}
+
+\tableofcontents
+\newpage
+
+\section{Natural Language Processing}
+
+\section{Deep Learning}
+
+\section{Time series \& Forecasting}
+
+\subsection{ARIMA}
+
+An $\text{ARIMA}(p,d,q)$ is an {\sl autoregressive integrated moving-average}
+with $p$ autoregressive terms (AR), $d$ differencings, and $q$ moving average (MA) terms.
+
+\begin{align*}
+  \phi(B) (1-B)^d Y_t = c + \theta(B) \epsilon_t
+\end{align*}
+where
+\begin{itemize}
+\item $B$ is the back-shift/lag operator $BY_t = Y_{t-1}$.
+\item $\phi(B) = (1 - \phi_1 B - \ldots - \phi_p B^p )$ is the autoregressive
+  $\text{AR}(p)$ component
+\item $c$ is a constant
+\item $\theta(B) =  1 + \theta_1 B + \ldots \theta_q B^q$ is the moving
+    average of the errors $\text{MA}(q)$ component.
+\item $\epsilon_t$ is the error of the $\text{AR}(p)$ model at time $t$
+\item The $(1-B)^d$ term induces $d$ differencing
+\end{itemize}
+
+%\subsubsection{Typical workflow}
+
+% ACF diagrams
+% testing for stationarity
+% differencing for stationarity
+
+
+\subsection{In {\tt R}}
+
+\begin{itemize}
+\item[{\tt auto.arima}] utilizes AIC and MLE to decide on best ARIMA parameters
+\end{itemize}
+
+\subsection{In {\tt Python}}
+
+\subsection{References}
+
+\url{https://otexts.com/fpp2/non-seasonal-arima.html}
+
+
+\end{document}
