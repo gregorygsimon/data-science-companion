@@ -1,7 +1,12 @@
-\BOOKMARK [1][-]{section.1}{Natural Language Processing}{}% 1
-\BOOKMARK [1][-]{section.2}{Deep Learning}{}% 2
-\BOOKMARK [1][-]{section.3}{Time series \046 Forecasting}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{ARIMA}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{In R}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{In Python}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.4}{References}{section.3}% 7
+\BOOKMARK [1][-]{section.1}{General Machine Learning}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Model Selection}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Akaike information criterion \(AIC\)}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Bayes information criterion \(BIC\)}{subsection.1.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.1.3}{References}{subsection.1.1}% 5
+\BOOKMARK [1][-]{section.2}{Deep Learning}{}% 6
+\BOOKMARK [1][-]{section.3}{Time series \046 Forecasting}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{ARIMA}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{In R}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{In Python}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{References}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Natural Language Processing}{}% 12
