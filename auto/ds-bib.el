@@ -2,7 +2,8 @@
  "ds-bib"
  (lambda ()
    (LaTeX-add-bibitems
-    "Barber_2011"
+    "Barber"
+    "fpp"
     "Raftery"))
  :bibtex)
 

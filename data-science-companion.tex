@@ -5,8 +5,6 @@
 \usepackage{graphicx}
 \usepackage{setspace}
 
-\usepackage{biblatex}
-
 \usepackage{xcolor,hyperref}
 
 \definecolor{UMBlue}{RGB}{0 39 76}
@@ -19,6 +17,22 @@
 %    linkcolor=black,
 %    urlcolor=black
 }
+
+\usepackage[style=authoryear,
+%bibstyle=authoryear,
+citestyle=alphabetic,
+maxcitenames=2,
+%maxbibnames=5,
+%natbib=true,
+hyperref=true,
+abbreviate=true,
+doi=false,
+isbn=false,
+backend=bibtex]{biblatex}
+
+\addbibresource{ds-bib.bib}
+
+
 
 
 
@@ -47,31 +61,33 @@
 \newpage
 
 \section{General Machine Learning}
+\newrefsection
 
 \subsection{Model Selection}
 
 \subsubsection{Akaike information criterion (AIC)}
 
+Test \cite{Raftery}.
+
 \subsubsection{Bayes information criterion (BIC)}
 
-\subsubsection{References}
 
-%Barber, D. (2011). Bayesian Reasoning and Machine Learning. Cambridge University Press. https://doi.org/10.1017/CBO9780511804779
+\printbibliography[title={References (General Machine Learning)}]
+\pagebreak
 
-%Raftery, A. E. (n.d.). Bayesian Model Selection in Social Research (with Discussion by Andrew Gelman & Donald B. Rubin, and Robert M. Hauser, and a Rejoinder). 66.
-
-
-
-
-\section{Deep Learning}
-
+%\section{Deep Learning}
+%\newrefsection
+%\printbibliography[title={References (Deep Learning)}]
+%\pagebreak
 
 \section{Time series \& Forecasting}
+\newrefsection
 
 \subsection{ARIMA}
 
 An $\text{ARIMA}(p,d,q)$ is an {\sl autoregressive integrated moving-average}
-with $p$ autoregressive terms (AR), $d$ differencings, and $q$ moving average (MA) terms.
+with $p$ autoregressive terms (AR), $d$ differencings, and $q$ moving average
+(MA) terms. \cite{fpp}.
 
 \begin{align*}
   \phi(B) (1-B)^d Y_t = c + \theta(B) \epsilon_t
@@ -103,12 +119,15 @@ where
 
 \subsection{In {\tt Python}}
 
-\subsection{References}
+\printbibliography[title={References (Time Series \& Forecasting)}]
+\pagebreak
 
-\url{https://otexts.com/fpp2/non-seasonal-arima.html}
 
+%\section{ExampleSectionName}
+%\newrefsection
+%\printbibliography[title={References (ExampleSectionName)}]
+%\pagebreak
 
-\section{Natural Language Processing}
 
 
 \end{document}
