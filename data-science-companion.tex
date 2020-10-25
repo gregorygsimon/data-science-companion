@@ -18,6 +18,7 @@
 %    urlcolor=black
 }
 
+
 \usepackage[style=authoryear,
 %bibstyle=authoryear,
 citestyle=alphabetic,
@@ -29,6 +30,11 @@ abbreviate=true,
 doi=false,
 isbn=false,
 backend=bibtex]{biblatex}
+
+\setlength{\bibitemsep}{0.5\baselineskip}
+
+\newcommand{\mystrut}{\ensuremath{\vphantom{\sum}}}
+
 
 \addbibresource{ds-bib.bib}
 
@@ -43,6 +49,15 @@ backend=bibtex]{biblatex}
 %\usepackage{helvet}
 %\renewcommand{\familydefault}{\sfdefault}
 
+%%%% greg's defs
+
+\newcommand{\EE}{\ensuremath{\mathbb{E}}}
+\newcommand{\PP}{\ensuremath{\mathbb{P}}}
+
+
+
+%%%%
+
 \title{Data Science Companion}
 
 \author{Greg Simon, \url{gregorygsimon@gmail.com}}
@@ -55,30 +70,401 @@ backend=bibtex]{biblatex}
 
 \abstract{A reference for basic data science tools and vocabulary, explaining
   essential terms and concepts, examining core ideas in major areas, and putting
-  methods in context. Includes relevent keywords and references for further}
+  methods in context. Includes relevent keywords and references.}
 
 \tableofcontents
 \newpage
 
-\section{General Machine Learning}
+
+
+\section{Bayesian Statistics}
+\newrefsection
+
+We follow \cite{Fonnesbeck2019}. Frequentist hypothesis testing has some flaws.
+\begin{itemize}
+\item We decide on a statistical test, null hypothesis, and significance level
+  subjectively, often based on tradition
+\item The null hypothesis is often clearly false with enough data.
+\item Easy to misinterpret the results, e.g. p-values.
+\end{itemize}
+
+Instead of testing, we want {\bf estimation} to measure {\sl how different} two
+groups are and we want to include a an estimate of the {\sl uncertainty}, both
+due to our lack of knowledge of model parameters ({\sl 'epistemic uncertainty'})
+as well as uncertainty due to stochasticity of the system ({\sl aleatory
+  uncertainty}). 
+
+The Bayesian approach stems from the equation:
+\begin{align*}
+  \underbrace{\mystrut\PP(\theta|y)}_{\text{posterior}} =
+  \frac{\overbrace{\mystrut\PP(y|\theta)}^{\text{likelihood}}\cdot\,\overbrace{\mystrut\PP(\theta)}^{\text{prior}}}
+  {\underbrace{\mystrut\PP(y)}_{\text{marginal likelihood}}}
+\end{align*}
+By inputing in prior probability distributions, we get posterior distributions
+out. The general steps are as follows:
+\begin{enumerate}
+\item {\bf Specify a probability model} -- assign distributions for unknown parameters,
+  data, covariates, etc.
+\item {\bf Calculate the posterior distributions} -- difficult but there are many
+  different methods for this.
+\item {\bf Check your model} -- does it fit the data? Are the conclusions reasonable? Are the outputs sensitive to changes in the model structure?
+\item {\bf Use the posterior distribution to get what you want} -- point estimates,
+  credible intervales, quantiles, predictions, etc.
+\end{enumerate}
+
+One of the main challenges is calculating .
+
+\subsection{Markov Chain Monte Carlo (MCMC)}
+
+
+Recall $\PP(\theta|y) \propto \PP(y|\theta) \PP(\theta)$ and we can calculate the
+right side. We don't know the normalizing constant $\PP(y) = \int_\theta P(y|\theta)
+\PP(\theta) \, d\theta$.
+
+Good explanation from \cite{12657}
+\begin{quote}
+  The goal of MCMC is to draw samples from the probability distribution on the
+right without having to know its exact height at any point. The way MCMC achieves this is to
+"wander around" on that distribution in such a way that the amount of time spent
+in each location is proportional to the height of the distribution.
+
+The simplest variant of the Metropolis-Hastings algorithm (independence chain sampling) achieves this as follows: assume that in every (discrete) time-step, we pick a random new "proposed" location (selected uniformly across the entire surface). If the proposed location is higher than where we're standing now, move to it. If the proposed location is lower, then move to the new location with probability p, where p is the ratio of the height of that point to the height of the current location. (i.e., flip a coin with a probability p of getting heads; if it comes up heads, move to the new location; if it comes up tails, stay where we are). Keep a list of the locations you've been at on every time step, and that list will (asyptotically) have the right proportion of time spent in each part of the surface. (And for the A and B hills described above, you'll end up with twice the probability of moving from B to A as you have of moving from A to B).
+
+There are more complicated schemes for proposing new locations and the rules for
+accepting them, but the basic idea is still: (1) pick a new "proposed" location;
+(2) figure out how much higher or lower that location is compared to your
+current location; (3) probabilistically stay put or move to that location in a
+way that respects the overall goal of spending time proportional to height of
+the location.
+\end{quote}
+
+Good breakdown of MCMC in PyMC3  and of a simple change point model is in \cite[Ch. 1]{pilon16_bayes}.
+
+\subsubsection{Metropolis-Hastings algorithm}
+
+\subsubsection{Gibbs sampling}
+
+\subsubsection{Hamiltonian Monte Carlo}
+
+Random-walk sampling (like Metropolis-Hastings) is not efficient in high
+dimension. We want an algorithm that samples from the area of the
+parameter space that contains most of the non-zero probability. This region is
+called the {\sl typical set}.
+
+The Hamiltonian Monte Carlo (HMC) avoids random walk behavior by simulating a
+physical system governed by Hamiltonian dynamics. The math is explained well in
+the following report \cite{Neal93probabilisticinference}.
+
+We start with a state $\chi = (s,\phi)$ with a position $s$ and velocity $\phi$.
+As in physics, the joint probability is proportional to an invariant Hamiltonian
+function:
+\begin{align*}
+  \PP((s,\phi)) \propto \exp( -\mathcal{H}(s,\phi))
+\end{align*}
+where the Hamiltonian is the sum of the two types of energy:
+\begin{align*}
+  \mathcal H(s,\phi) = \underbrace{\mystrut E(s)}_{\text{potential}} +
+  \underbrace{\mystrut K(\theta)}_{\text{kinetic}} = E(s) + \frac{1}{2} \sum_i \phi_i^2.
+\end{align*}
+
+These satisfy the differential equations:
+
+\begin{align*}\frac{ds_i}{dt} &= \frac{\partial \mathcal{H}}{\partial \phi_i} = \phi_i \\
+\frac{d\phi_i}{dt} &= - \frac{\partial \mathcal{H}}{\partial s_i}
+= - \frac{\partial E}{\partial s_i}
+\end{align*}
+
+Often we assume that $\PP(\phi)$ is often taken to be the univariate Gaussian. So
+we can use a {\bf leap-frog} time discretization of this differential equation.
+Care must be maintained to preserve {\sl volume conservation} and {\sl time
+  reversibility}. This performs half-step updates to the velocity at time
+$t+\epsilon/2$ which is used to compute $s(t+\epsilon)$ and $\phi(t+\epsilon)$.
+We also introduce an accept/reject stage with some probability to correct for
+the bias of discretization as well as floating-point rounding errors.
+
+\subsubsection{No-U-Turn Sampler (NUTS)}
+
+Summarized as ``Adaptively Setting Path Lengths in Hamiltonian Monte Carlo''
+\cite{DBLP:journals/jmlr/HoffmanG14}. Auto-tunes number of steps $L$ and step
+size $\epsilon$. Uses a recursive algorithm to build a set
+of likely candidate points, stopping automatically if it begins to retrace its
+steps.
+
+\subsection{Model Checking}
+
+Two types: {\bf Convergence diagnostics} and {\bf Goodness of fit}. The former
+is intended to detect lack of convergence in MCMC sample - e.g. to ensure you
+have not halted your sampling too early.
+
+A converged model is not guaranteed to be a good model. Goodness of fit is used
+to check the internal validity of the odel by comparing predictions from the
+model to the data used to fit the model.
+
+Informally, you can plot and inspect the traces and histograms of the observed
+MCMC sample (as in {\tt arviz.plot\_trace()}). The trace may clearly not yet be
+convergent, or it may appear to be stationary about its mean.
+
+Another informal method is to initialize with differenting starting values. If
+each trace converges towards the same equilibrium, this is evidence for {\sl
+  ergodicity}\footnote{ergodicity is the tendency for some Markov chains to converge to the true
+unknown value from diverse starting states}. Carefull for {\sl metastability} --
+characterized by stability for a long duration but then moving to another region
+of the parameter space.
+
+\subsubsection{Gelman-Rubin diagnostic}
+
+Gelman-Rubin diagnostic uses multiple chains to check for convergence, based on
+the idea that if multiple chains have converged then they should appear very
+similar to one-another. It uses an analysis of variance approach, calculating
+between-chain variance $B$ and a within-chain variance $W$ and assess whether
+they are different enough to worry about lack of convergence.
+
+This allows us to estimate the {\sl marginal posterior variance} of the
+parameter of interest and defines an $\hat R$ statistics that should be close to 1 if the chains are
+convergent.
+
+\begin{align*}
+    \widehat{ \text{Var}}(\theta | y) &= \frac{n-1}{n} W + \frac{1}{n} B\\[2ex]
+  \hat{R} &= \sqrt{\frac{\widehat{\text{Var}}(\theta | y)}{W}}
+\end{align*}
+
+
+
+\bigskip
+
+A great Q\&A and common misunderstandings for MCMC is summarized in \cite{robert2020markov}.
+
+\printbibliography[heading=subbibnumbered]
+\pagebreak
+
+\section{General Machine Learning Concepts}
+
 \newrefsection
 
 \subsection{Model Selection}
 
+For a model $S$, the {\sl prediction risk} is defined to be 
+
+\begin{align*}
+  R(S) = \sum_{i=1}^n \EE[ (\hat Y_i(S) - Y_i*)]
+\end{align*}
+where $\hat Y_i$ are the predicted values and $Y_i*$ are the values of a future
+observation at covariate values $X_i$. The {\sl training error} is
+\begin{align*}
+  \hat R_{tr}(S) = \sum_{i=1}^n \left(\hat Y_i(S) - Y_i \right)^2
+\end{align*}
+The training error is a downward biased estimator for the prediction risk, and
+\begin{align*}
+  \text{optimism}(S) = \text{bias}\left( \hat R_{tr}(S) \right) = \EE(\hat R_{tr}(S)) - R(S) = -2 \sum_{i=1}^n \text{Cov}(\hat Y_i, Y_i)
+\end{align*}
+
+This leads to {\bf Mallow's $C_p$ statistic} defined by:
+\begin{align*}
+  \hat R(S) = \hat R_{tr}(S) + 2 d \sigma_\epsilon^2
+\end{align*}
+where $\sigma_\epsilon^2$ is the estimate of the standard deviation of the
+models error and $d$ is the number of free inputs or basis functions in the model. 
+\cite[\S7.4]{esl}.
+
+
+
+
 \subsubsection{Akaike information criterion (AIC)}
 
-Test \cite{Raftery}.
+The {\sl Akaike Information Criterion} is (proportional to)
+
+\begin{align*}
+  \text{loglik}_{\text{MLE}} - |S|
+\end{align*}
+The log-likelihood of the model at the MLE minus the dimension of free
+parameters in the model.
+
+We start with a set of models $\{M_1, M_2  \ldots \}$. Let $\widehat{f_j}(x) :=
+\hat f(x , \widehat{\beta_j})$ be
+the estimated probability function obtained by using the parameters $\beta_j$
+that realize the maximimum likelihood estimate for model $M_j$.
+
+One approach \cite[\S13.9]{wasserman} to consider the {\sl Kullback-Leibler
+  distance} defined by:
+\begin{align*}
+  D(f,g) = \sum_x f(x) \log\left(\frac{f(x)}{\hat f(x)} \right)
+\end{align*}
+And specifically consider the risk function $R(f,\hat f) = \mathbb{E}(D(f,\hat
+f))$. We can write
+\begin{align*}
+  D(f,g ) =sum_x f(x) \log f(x)  - \sum_x f(x)\log \hat f(x)
+\end{align*}
+So finding $\hat f$ that minimizes risk is equivalent to minimizing $a(f, \hat
+f):= \mathbb{E}\left( \sum_x f(x) \log \hat f(x) \right)$. The AIC is an
+appoximately unbiased estimate of $a(f,\hat f)$.
 
 \subsubsection{Bayes information criterion (BIC)}
 
+With models with a set of models $M_1,M_2, \ldots $ and observed data $Z$, we
+have
 
-\printbibliography[title={References (General Machine Learning)}]
+\begin{align*}
+\frac{ \PP (M_m | Z) }{\PP(M_\ell|Z)} = \frac{\PP(M_m)}{\PP(M_\ell)} \cdot \frac{\PP(Z | M_m)}{\PP(Z | M_\ell)} 
+\end{align*}
+The rightmost factor is what we are concerned with, the {\sl Bayes Factor}:
+\begin{align*}
+  \text{BF}(Z) = \frac{\PP(Z | M_m)}{\PP(Z | M_\ell)} 
+\end{align*}
+We seek to approximate the integral $\PP(Z | M_m) = \displaystyle\int \PP(Z | \theta,M_m)
+\PP(\theta |M_m) d\theta$, (where the integral is over the space of parameters
+$\theta$). This can be approximated using the MLE $\hat \theta_m$ for $M_m$
+\begin{align*}
+  \log \PP(Z |M_m) \approx \log \PP(Z | \hat \theta_m, M_m ) - \frac{d_m}{2} \log N + O(1)
+\end{align*}
+So if we take our loss function to be $-2 \log \PP(Z | \hat \theta_m , M_m)$
+then we reach the BIC criterion with the goal of minimizing:
+\begin{align*}
+  \text{BIC} = -2 \text{loglik} + (\log N )\cdot d
+\end{align*}
+
+Another great resource for BIC is \cite{Raftery}.
+
+\subsection{Fischer information}
+
+
+\subsection{VC dimension}
+
+In a simple case, consider two class classification problem where $f(\mathbf
+x,\alpha) \in \{-1,1\}$ for some parameter $\alpha$. A given set of $\ell$
+points can be labeled in $2^\ell$ possible ways. If there is a fucntion
+$f(\cdot,\alpha)$ which correctly classifies all $\ell$ points, then we say
+these points is {\sl shattered} by the set $\{f(\cdot,\alpha)\}$. The VC
+dimension is the maximum number of training points that can be shattered by
+$\{f(\alpha)\}$. If the VC dimension is $h$, then there is at least one set of
+points $h$ that can be shattered but not {\sl every} set of $h$ points will be
+shattered.  \cite[\S2.1]{Burges2004}
+
+
+
+\subsection{Ensemble methods}
+
+\subsubsection{Bagging}
+
+\subsubsection{Boosting}
+
+
+\printbibliography[heading=subbibnumbered]
 \pagebreak
+
+\section{Regression}
+
+\subsection{Regularization}
+\subsubsection{Ridge $(L^2)$}
+
+\begin{align*}
+  SSE_{L2} = \sum_i (y_i - \hat y_i)^2 + \lambda\sum_{j=1}^P \beta_j^2
+\end{align*}
+
+\subsubsection{Lasso $(L^1)$}
+
+\begin{align*}
+  SSE_{L1} = \sum_i (y_i - \hat y_i)^2 + \lambda\sum_{j=1}^P |\beta_j|
+\end{align*}
+Tends to shrink coefficients to 0 and almost performs feature selection. 
+
+\subsection{Random Forests}
+
+Data is split and the average
+
+\subsection{Gradient Boosted Trees}
+
+Pseudocode for GBM \cite{CASI,}
+\begin{enumerate}
+\item Select tree depth $D$ and number of iterations $K$
+\item Compute average response $\bar y$ and use this as initial predicted value.
+\item for $i = 1$ to $K$:
+  \begin{enumerate}
+  \item Compute the residual (observed - prediction), for each sample.
+  \item Fit a regression tree of depth $D$ using residuals as the response.
+  \item Predict each sample using the regression tree fit in the previous step.
+  \item Updated predicted value of to the predicted value generated in previous step.
+  \end{enumerate}
+\end{enumerate}
+
+
+
+\subsection{Bayesian Additive Regression Trees (BART)}
+
+
+\section{Classification}
+\newrefsection
+
+\subsection{Metrics}
+
+\subsubsection{Area under ROC curve}
+
+Plot the True Positive Rate (aka Recall) vs False Positive Rate.
+
+AUC is scale-invariant. It measures how well predictions are ranked, rather than
+their absolute values. AUC is classification-threshold-invariant. It measures the quality of the model's predictions irrespective of what classification threshold is chosen.
+
+Classification-threshold invariance is not always desirable. In cases where
+there are wide disparities in the cost of false negatives vs. false positives,
+it may be critical to minimize one type of classification error. For example,
+when doing email spam detection, you likely want to prioritize minimizing false
+positives (even if that results in a significant increase of false negatives).
+AUC isn't a useful metric for this type of optimization.
+
+\subsubsection{Mathews Correlation Coefficient}
+
+The Pearson product moment correlation coefficient between actual and predicted
+values \cite[Methods]{ChiccoJurman2020}. As a function of the Confusion Matrix, entries, this is:
+\begin{align*}
+  MCC = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP+FP)\cdot(TP + FN) \cdot (TN+FP) \cdot (TN+FN)})}
+\end{align*}
+
+
+
+\subsection{Support Vector Machines (SVM)}
+
+\cite{Burges2004}
+
+\subsection{Naive Bayes Classifying }
+
+
+\printbibliography[heading=subbibnumbered]
+
+%\printbibliography[heading=subbibnumbered]
+\pagebreak
+
+\section{Unsupervised Learning}
+\newrefsection
+
+%\printbibliography[heading=subbibnumbered]
+\pagebreak
+
+\section{Feature Engineering}
+\newrefsection
+
+\subsection{Principal Component Analysis (PCA)}
+
+
+
+%\printbibliography[heading=subbibnumbered]
+\pagebreak
+
 
 %\section{Deep Learning}
 %\newrefsection
 %\printbibliography[title={References (Deep Learning)}]
 %\pagebreak
+
+\section{Natural Language Processing}
+\newrefsection
+
+\section{Embeddings}
+
+\subsection{TF-IDF}
+
+
+%\printbibliography[title={References (Deep Learning)}]
+\pagebreak
+
 
 \section{Time series \& Forecasting}
 \newrefsection
@@ -119,13 +505,13 @@ where
 
 \subsection{In {\tt Python}}
 
-\printbibliography[title={References (Time Series \& Forecasting)}]
+\printbibliography[title={References (Time Series \& Forecasting)},heading=subbibnumbered]
 \pagebreak
 
 
 %\section{ExampleSectionName}
 %\newrefsection
-%\printbibliography[title={References (ExampleSectionName)}]
+%\printbibliography[title={References (ExampleSectionName)},heading=subbibnumbered]
 %\pagebreak
 
 
