@@ -41,7 +41,7 @@
   >
 ]>
 <requests version="1.0">
-  <internal package="biblatex" priority="9" active="0">
+  <internal package="biblatex" priority="9" active="1">
     <generic>latex</generic>
     <provides type="dynamic">
       <file>data-science-companion.aux</file>
@@ -52,6 +52,7 @@
       <file>data-science-companion5-blx.aux</file>
       <file>data-science-companion6-blx.aux</file>
       <file>data-science-companion7-blx.aux</file>
+      <file>data-science-companion8-blx.aux</file>
       <file>data-science-companion-blx.bib</file>
     </provides>
     <requires type="dynamic">
@@ -63,6 +64,7 @@
       <file>data-science-companion5-blx.bbl</file>
       <file>data-science-companion6-blx.bbl</file>
       <file>data-science-companion7-blx.bbl</file>
+      <file>data-science-companion8-blx.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -131,7 +133,7 @@
       <file>biblatex.bst</file>
     </requires>
   </external>
-  <external package="biblatex" priority="5" active="0">
+  <external package="biblatex" priority="5" active="1">
     <generic>bibtex</generic>
     <cmdline>
       <binary>bibtex</binary>
@@ -284,6 +286,33 @@
     </provides>
     <requires type="dynamic">
       <file>data-science-companion7-blx.aux</file>
+      <file>data-science-companion-blx.bib</file>
+    </requires>
+    <requires type="editable">
+      <file>ds-bib.bib</file>
+    </requires>
+    <requires type="static">
+      <file>biblatex.bst</file>
+    </requires>
+  </external>
+  <external package="biblatex" priority="5" active="0">
+    <generic>bibtex</generic>
+    <cmdline>
+      <binary>bibtex</binary>
+      <option>-min-crossrefs 2</option>
+      <infile>data-science-companion8-blx</infile>
+    </cmdline>
+    <input>
+      <file>data-science-companion8-blx.aux</file>
+    </input>
+    <output>
+      <file>data-science-companion8-blx.bbl</file>
+    </output>
+    <provides type="dynamic">
+      <file>data-science-companion8-blx.bbl</file>
+    </provides>
+    <requires type="dynamic">
+      <file>data-science-companion8-blx.aux</file>
       <file>data-science-companion-blx.bib</file>
     </requires>
     <requires type="editable">

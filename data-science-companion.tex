@@ -36,6 +36,7 @@ backend=bibtex]{biblatex}
 \newcommand{\mystrut}{\ensuremath{\vphantom{\sum}}}
 
 
+
 \addbibresource{ds-bib.bib}
 
 
@@ -365,11 +366,52 @@ shattered.  \cite[\S2.1]{Burges2004}
 \begin{align*}
   SSE_{L1} = \sum_i (y_i - \hat y_i)^2 + \lambda\sum_{j=1}^P |\beta_j|
 \end{align*}
-Tends to shrink coefficients to 0 and almost performs feature selection. 
+Tends to shrink coefficients to 0 and almost performs feature selection.
+
+\subsection{Decision trees}
+
+Mostly following the notation in \cite[\S9.2]{esl}, our aim is to split into $M$
+regions $R_1,\ldots,R_M$ where we model the response as a constant $c_i$ in each
+region $f(x) = \sum_{i=1}^M c_i I(x\in R_i)$. We inductively want to decide if
+and where to further split each region.
+
+To do this, we seek splitting variable $j$ and split point $s$ that partition
+space into two half planes $L(j,s) \{X | X_j \leq s\}$ and $R(k,s) = \{X | X_j >
+s\}$ where we achieve the minimum of:
+\begin{align*}
+  \min_{j,s} \left[ \text{cost}(L) + \text{cost}(R) \right]
+\end{align*}
+The cost function for regression is generally the sum-of-squared errors taking
+the average of each region as the predicted value of all points in that region.
+
+To avoid overfitting, we may add all cost functions over the entire tree as well
+as an overall penalty to the cost function of the form
+$\alpha |T|$ where $|T|$ is the number of terminal nodes in $T$.
+
+\subsection{Classification Trees}
+
+For classification, we want other cost functions. Suppose we have labels
+$1,\ldots,K$. In region $R_j$, define the observed probability of $k$ to be
+$\hat p_{jk}$.
+
+\paragraph{Gini impurity}
+
+\cite[\S9.2.3]{esl} For classification, the {\sl Gini impurity} is:
+%%% is the line below true?
+% this measures the probability that an element would be labeled incorrectly. 
+\begin{align*}
+  \sum_k
+\PP(\ell=k) \PP(\text{not predicted } k) & = \sum_k \hat p_{jk}
+\end{align*}
+
+\subsubsection{Oblique decision trees}
+
+Using splits not parallel with axes is computationally/algorithmically more
+challenging but has potential to produce better results. See for example \cite{Murthy_1994.}
 
 \subsection{Random Forests}
 
-Data is split and the average
+Bagged version of decision trees.
 
 \subsection{Gradient Boosted Trees}
 
@@ -410,6 +452,10 @@ when doing email spam detection, you likely want to prioritize minimizing false
 positives (even if that results in a significant increase of false negatives).
 AUC isn't a useful metric for this type of optimization.
 
+\subsubsection{Precicion-Recall Curve}
+
+
+
 \subsubsection{Mathews Correlation Coefficient}
 
 The Pearson product moment correlation coefficient between actual and predicted
@@ -420,7 +466,7 @@ values \cite[Methods]{ChiccoJurman2020}. As a function of the Confusion Matrix, 
 
 
 
-\subsection{Support Vector Machines (SVM)}
+\subsection{Support Vector Machines (SVM)} %TODO: Add SVMs
 
 \cite{Burges2004}
 
@@ -435,8 +481,95 @@ values \cite[Methods]{ChiccoJurman2020}. As a function of the Confusion Matrix, 
 \section{Unsupervised Learning}
 \newrefsection
 
+\subsection{k-means}
+
+\subsubsection{Lloyd's algorithm}
+
+\begin{itemize}
+\item Initialize $k$ points $C$.
+\item {\bf repeat}
+  \begin{itemize}
+  \item For all $x\in X$, find the closest center $\phi_C(x)\in C$ to $x$
+  \item Recalculate the new centroids $c_i' = \text{mean}\{x\in X: \phi_C(x) = c_i\}$.
+  \end{itemize}
+\item {\bf until} The set $C$ is unchanged.
+\end{itemize}
+
+There are finitely many distinct cluster centers, and the cost is always
+decreasing, so this is a finite algorithm. LLoyd's algorithm has complexity is ${\bf O}(K\cdot I \cdot N \cdot M)$ where $K$ is the number of
+clusters, $I$ is the number of iterations, $N$ is the sample size, and $M$ is
+the dimension of the space.
+
+For initialization, there are compromises. Randomly partitioning $X$ and taking
+centroids of the partitions is OK but biases towards the center of $X$. There is
+$k$-means++ where we choose $c_1\in X$ randomly and then for $i=2,\ldots,k$ we
+define $C_i = \{c1,\ldots, c_i\}$ and 
+choose $c_i$ from $X$ with probability proportional to
+$d(x,\phi_{C_{i-1}}(x))^2$. So points further from any cluster are chosen more often
+
+In order to work correctly, KMeans typically needs to have some form of
+normalization done of the datasets. K-means is sensitive to both means and
+variance in the datasets, e.g. {\tt StandardScalar}.
+
+
+Mini batch KMeans is an alternative to the traditional KMeans, that provides
+better performance for training on larger datasets. It is exactly what it sounds
+like -- using small batches to update the clusters mean.
+
+\subsection{Other types of clustering}
+
+\begin{itemize}
+\item hierarchical clustering
+\item density-based (e.g., MeanShift, DBSCAN)
+\item distribution based (e.g. GMM)
+\item Affinity propagation
+\end{itemize}
+
+
 %\printbibliography[heading=subbibnumbered]
 \pagebreak
+
+\section{Information Theory}
+\newrefsection
+
+\subsection{Kullback-Liebler (KL) distance}
+
+% TODO: merge this in introduction of tree-methods section?
+
+Following \cite[\S2.1]{Duchi_2016}, let $X$ be a random variable (with countable
+support for now) with distribution $P$ and pmf $P(X=x)=p(x)$. The {\bf entropy} of $X$ (or of $P$) is
+defined as:
+\begin{align*}
+  H(X) = -\sum_x p(x) \log p(x)
+\end{align*}
+Roughly speaking (formalized by Shannon's source-coding theorem), if we wish to
+encode $X$ with distribution $P$ with a $k$-ary string then the minimal expected
+lenght of the encoding is $H(X)$, and this is achieved by Huffman codes.
+
+The {\sl conditional entropy} is the amount of information left in a random
+variable after observing another:
+\begin{align*}
+  H(X | Y=y) = -\sum_x p(x|y) \log p(x|y),\\
+  \intertext{and}
+  H(X|Y) = \sum_y p(y) H(X|Y=y)
+\end{align*}
+
+For two distributions $P$ and $Q$. The
+{\bf Kullback-Liebler (KL) divergence} is:
+\begin{align*}
+  D_{kl}(P\| Q) = \int_x p(x) \log \frac{p(x)}{q(x)}
+\end{align*}
+Since log is concave, Jensen's inequality\footnote{Jensen's inequality states
+  that $f(\EE[X]) \leq \EE[f(X)]$
+  for concave $f$, with strict concavity implying strict inequality unless $X$
+  is constant.} implies that KL-divergence is non-negative and equal to 0 onlu
+if $P=Q$.
+
+For finite probability space with cardinality $m$, it is easy to show that $D_{kl}(P\|Q) = -H(X) + \log m$.
+
+%\printbibliography[heading=subbibnumbered]
+\pagebreak
+
 
 \section{Feature Engineering}
 \newrefsection
@@ -459,7 +592,7 @@ values \cite[Methods]{ChiccoJurman2020}. As a function of the Confusion Matrix, 
 
 \section{Embeddings}
 
-\subsection{TF-IDF}
+\subsection{TF-IDF} %TODO add TF-IDF
 
 
 %\printbibliography[title={References (Deep Learning)}]
