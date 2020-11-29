@@ -1,0 +1,53 @@
+\BOOKMARK [1][-]{section.1}{Bayesian Statistics}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Markov Chain Monte Carlo \(MCMC\)}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Metropolis-Hastings algorithm}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Gibbs sampling}{subsection.1.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.1.3}{Hamiltonian Monte Carlo}{subsection.1.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.1.4}{No-U-Turn Sampler \(NUTS\)}{subsection.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.2}{Model Checking}{section.1}% 7
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Gelman-Rubin diagnostic}{subsection.1.2}% 8
+\BOOKMARK [2][-]{subsection.1.3}{References}{section.1}% 9
+\BOOKMARK [1][-]{section.2}{General Machine Learning Concepts}{}% 10
+\BOOKMARK [2][-]{subsection.2.1}{Model Selection}{section.2}% 11
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Akaike information criterion \(AIC\)}{subsection.2.1}% 12
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Bayes information criterion \(BIC\)}{subsection.2.1}% 13
+\BOOKMARK [2][-]{subsection.2.2}{Fischer information}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.3}{VC dimension}{section.2}% 15
+\BOOKMARK [2][-]{subsection.2.4}{Ensemble methods}{section.2}% 16
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Bagging}{subsection.2.4}% 17
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Boosting}{subsection.2.4}% 18
+\BOOKMARK [2][-]{subsection.2.5}{References}{section.2}% 19
+\BOOKMARK [1][-]{section.3}{Regression}{}% 20
+\BOOKMARK [2][-]{subsection.3.1}{Regularization}{section.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Ridge \(L2\)}{subsection.3.1}% 22
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Lasso \(L1\)}{subsection.3.1}% 23
+\BOOKMARK [2][-]{subsection.3.2}{Decision trees}{section.3}% 24
+\BOOKMARK [2][-]{subsection.3.3}{Classification Trees}{section.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Oblique decision trees}{subsection.3.3}% 26
+\BOOKMARK [2][-]{subsection.3.4}{Random Forests}{section.3}% 27
+\BOOKMARK [2][-]{subsection.3.5}{Gradient Boosted Trees}{section.3}% 28
+\BOOKMARK [2][-]{subsection.3.6}{Bayesian Additive Regression Trees \(BART\)}{section.3}% 29
+\BOOKMARK [1][-]{section.4}{Classification}{}% 30
+\BOOKMARK [2][-]{subsection.4.1}{Metrics}{section.4}% 31
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Area under ROC curve}{subsection.4.1}% 32
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Precicion-Recall Curve}{subsection.4.1}% 33
+\BOOKMARK [3][-]{subsubsection.4.1.3}{Mathews Correlation Coefficient}{subsection.4.1}% 34
+\BOOKMARK [2][-]{subsection.4.2}{Support Vector Machines \(SVM\)}{section.4}% 35
+\BOOKMARK [2][-]{subsection.4.3}{Naive Bayes Classifying }{section.4}% 36
+\BOOKMARK [2][-]{subsection.4.4}{References}{section.4}% 37
+\BOOKMARK [1][-]{section.5}{Unsupervised Learning}{}% 38
+\BOOKMARK [2][-]{subsection.5.1}{k-means}{section.5}% 39
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Lloyd's algorithm}{subsection.5.1}% 40
+\BOOKMARK [2][-]{subsection.5.2}{Other types of clustering}{section.5}% 41
+\BOOKMARK [1][-]{section.6}{Information Theory}{}% 42
+\BOOKMARK [2][-]{subsection.6.1}{Kullback-Liebler \(KL\) distance}{section.6}% 43
+\BOOKMARK [1][-]{section.7}{Feature Engineering}{}% 44
+\BOOKMARK [2][-]{subsection.7.1}{Principal Component Analysis \(PCA\)}{section.7}% 45
+\BOOKMARK [1][-]{section.8}{Natural Language Processing}{}% 46
+\BOOKMARK [1][-]{section.9}{Embeddings}{}% 47
+\BOOKMARK [2][-]{subsection.9.1}{TF-IDF}{section.9}% 48
+\BOOKMARK [1][-]{section.10}{Time series \046 Forecasting}{}% 49
+\BOOKMARK [2][-]{subsection.10.1}{ARIMA}{section.10}% 50
+\BOOKMARK [2][-]{subsection.10.2}{In R}{section.10}% 51
+\BOOKMARK [2][-]{subsection.10.3}{In Python}{section.10}% 52
+\BOOKMARK [2][-]{subsection.10.4}{References \(Time Series \046 Forecasting\)}{section.10}% 53

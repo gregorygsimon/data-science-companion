@@ -1,0 +1,109 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}Bayesian Statistics}{3}{section.1}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsection}{\numberline {1.1}Markov Chain Monte Carlo (MCMC)}{3}{subsection.1.1}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsubsection}{\numberline {1.1.1}Metropolis-Hastings algorithm}{4}{subsubsection.1.1.1}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsubsection}{\numberline {1.1.2}Gibbs sampling}{4}{subsubsection.1.1.2}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsubsection}{\numberline {1.1.3}Hamiltonian Monte Carlo}{4}{subsubsection.1.1.3}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsubsection}{\numberline {1.1.4}No-U-Turn Sampler (NUTS)}{5}{subsubsection.1.1.4}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsection}{\numberline {1.2}Model Checking}{5}{subsection.1.2}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsubsection}{\numberline {1.2.1}Gelman-Rubin diagnostic}{5}{subsubsection.1.2.1}%
+\defcounter {refsection}{1}\relax 
+\contentsline {subsection}{\numberline {1.3}References}{6}{subsection.1.3}%
+\defcounter {refsection}{1}\relax 
+\contentsline {section}{\numberline {2}General Machine Learning Concepts}{7}{section.2}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {2.1}Model Selection}{7}{subsection.2.1}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsubsection}{\numberline {2.1.1}Akaike information criterion (AIC)}{7}{subsubsection.2.1.1}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsubsection}{\numberline {2.1.2}Bayes information criterion (BIC)}{8}{subsubsection.2.1.2}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {2.2}Fischer information}{8}{subsection.2.2}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {2.3}VC dimension}{8}{subsection.2.3}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {2.4}Ensemble methods}{8}{subsection.2.4}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsubsection}{\numberline {2.4.1}Bagging}{8}{subsubsection.2.4.1}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsubsection}{\numberline {2.4.2}Boosting}{8}{subsubsection.2.4.2}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {2.5}References}{8}{subsection.2.5}%
+\defcounter {refsection}{2}\relax 
+\contentsline {section}{\numberline {3}Regression}{10}{section.3}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {3.1}Regularization}{10}{subsection.3.1}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsubsection}{\numberline {3.1.1}Ridge $(L^2)$}{10}{subsubsection.3.1.1}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsubsection}{\numberline {3.1.2}Lasso $(L^1)$}{10}{subsubsection.3.1.2}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {3.2}Decision trees}{10}{subsection.3.2}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {3.3}Classification Trees}{10}{subsection.3.3}%
+\defcounter {refsection}{2}\relax 
+\contentsline {paragraph}{Gini impurity}{10}{section*.2}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsubsection}{\numberline {3.3.1}Oblique decision trees}{10}{subsubsection.3.3.1}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {3.4}Random Forests}{11}{subsection.3.4}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {3.5}Gradient Boosted Trees}{11}{subsection.3.5}%
+\defcounter {refsection}{2}\relax 
+\contentsline {subsection}{\numberline {3.6}Bayesian Additive Regression Trees (BART)}{11}{subsection.3.6}%
+\defcounter {refsection}{2}\relax 
+\contentsline {section}{\numberline {4}Classification}{11}{section.4}%
+\defcounter {refsection}{3}\relax 
+\contentsline {subsection}{\numberline {4.1}Metrics}{11}{subsection.4.1}%
+\defcounter {refsection}{3}\relax 
+\contentsline {subsubsection}{\numberline {4.1.1}Area under ROC curve}{11}{subsubsection.4.1.1}%
+\defcounter {refsection}{3}\relax 
+\contentsline {subsubsection}{\numberline {4.1.2}Precicion-Recall Curve}{11}{subsubsection.4.1.2}%
+\defcounter {refsection}{3}\relax 
+\contentsline {subsubsection}{\numberline {4.1.3}Mathews Correlation Coefficient}{11}{subsubsection.4.1.3}%
+\defcounter {refsection}{3}\relax 
+\contentsline {subsection}{\numberline {4.2}Support Vector Machines (SVM)}{11}{subsection.4.2}%
+\defcounter {refsection}{3}\relax 
+\contentsline {subsection}{\numberline {4.3}Naive Bayes Classifying }{12}{subsection.4.3}%
+\defcounter {refsection}{3}\relax 
+\contentsline {subsection}{\numberline {4.4}References}{12}{subsection.4.4}%
+\defcounter {refsection}{3}\relax 
+\contentsline {section}{\numberline {5}Unsupervised Learning}{13}{section.5}%
+\defcounter {refsection}{4}\relax 
+\contentsline {subsection}{\numberline {5.1}k-means}{13}{subsection.5.1}%
+\defcounter {refsection}{4}\relax 
+\contentsline {subsubsection}{\numberline {5.1.1}Lloyd's algorithm}{13}{subsubsection.5.1.1}%
+\defcounter {refsection}{4}\relax 
+\contentsline {subsection}{\numberline {5.2}Other types of clustering}{13}{subsection.5.2}%
+\defcounter {refsection}{4}\relax 
+\contentsline {section}{\numberline {6}Information Theory}{14}{section.6}%
+\defcounter {refsection}{5}\relax 
+\contentsline {subsection}{\numberline {6.1}Kullback-Liebler (KL) distance}{14}{subsection.6.1}%
+\defcounter {refsection}{5}\relax 
+\contentsline {section}{\numberline {7}Feature Engineering}{15}{section.7}%
+\defcounter {refsection}{6}\relax 
+\contentsline {subsection}{\numberline {7.1}Principal Component Analysis (PCA)}{15}{subsection.7.1}%
+\defcounter {refsection}{6}\relax 
+\contentsline {section}{\numberline {8}Natural Language Processing}{16}{section.8}%
+\defcounter {refsection}{7}\relax 
+\contentsline {section}{\numberline {9}Embeddings}{16}{section.9}%
+\defcounter {refsection}{7}\relax 
+\contentsline {subsection}{\numberline {9.1}TF-IDF}{16}{subsection.9.1}%
+\defcounter {refsection}{7}\relax 
+\contentsline {section}{\numberline {10}Time series \& Forecasting}{17}{section.10}%
+\defcounter {refsection}{8}\relax 
+\contentsline {subsection}{\numberline {10.1}ARIMA}{17}{subsection.10.1}%
+\defcounter {refsection}{8}\relax 
+\contentsline {subsection}{\numberline {10.2}In {\tt R}}{17}{subsection.10.2}%
+\defcounter {refsection}{8}\relax 
+\contentsline {subsection}{\numberline {10.3}In {\tt Python}}{17}{subsection.10.3}%
+\defcounter {refsection}{8}\relax 
+\contentsline {subsection}{\numberline {10.4}References (Time Series \& Forecasting)}{17}{subsection.10.4}%
